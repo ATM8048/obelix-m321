@@ -1,21 +1,16 @@
 package ch.bbw.obelix.quarry;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
 
-import java.util.Locale;
-import java.util.UUID;
-
+@Service
 public class QuarryService {
 
     private final MenhirRepository menhirRepository;
-    @Lazy
-    private final QuarryController quarryWebclient;
 
 
-    public QuarryService(MenhirRepository menhirRepository, QuarryController quarryWebclient) {
+    public QuarryService(MenhirRepository menhirRepository) {
         this.menhirRepository = menhirRepository;
-        this.quarryWebclient = quarryWebclient;
     }
 
     @PostConstruct

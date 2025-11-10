@@ -1,18 +1,28 @@
 package ch.bbw.obelix.webshop.controller;
 
+import ch.bbw.obelix.quarry.api.MenhirDto;
 import ch.bbw.obelix.webshop.dto.BasketDto;
 import ch.bbw.obelix.webshop.service.BasketService;
+import ch.bbw.obelix.webshop.service.QuarryWebClientService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
-public class ObelixWebshopController {
+@RestController
+@RequiredArgsConstructor
+public class BasketController {
 
 	private final BasketService basketService;
+	private final QuarryWebClientService quarryWebclient;
 
-	public ObelixWebshopController(BasketService basketService) {
-		this.basketService = basketService;
+
+	@GetMapping("/api/menhirs")
+	public List<MenhirDto> getAll() {
+		return quarryWebclient.api().getAllMenhirs();
 	}
+
 
 	@GetMapping("/api")
 	public String welcome() {

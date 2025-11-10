@@ -23,7 +23,6 @@ import java.util.*;
 @Transactional
 @RequiredArgsConstructor
 public class BasketService {
-	@Lazy
 	private final QuarryWebClientService quarryWebclient;
 
 	private BasketDto basket;
@@ -59,10 +58,14 @@ public class BasketService {
 
 	public void exchange(UUID menhirId) {
 		var quarryApi = quarryWebclient.api();
-		var menhir = quarryApi.getMenhirById(menhirId);
-		var decorativeness = menhir.decorativeness();
-		if (!isGoodOffer(decorativeness)) {
-			throw new BadOfferException("Bad Offer: That won't even feed Idefix!");
+		try {
+			var menhir = quarryApi.getMenhirById(menhirId);
+			var decorativeness = menhir.decorativeness();
+			if (!isGoodOffer(decorativeness)) {
+				throw new BadOfferException("Bad Offer: That won't even feed Idefix!");
+			}
+		} catch (Exception e) {
+			throw new BadOfferException("Menhir already bought!", e);
 		}
 		quarryApi.deleteById(menhirId);
 		leave();
