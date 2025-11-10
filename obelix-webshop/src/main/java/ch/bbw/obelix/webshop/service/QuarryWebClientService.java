@@ -1,6 +1,7 @@
 package ch.bbw.obelix.webshop.service;
 
 import ch.bbw.obelix.quarry.api.QuarryApi;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -13,8 +14,8 @@ public class QuarryWebClientService {
 
     private final QuarryApi quarryApi;
 
-    public QuarryWebClientService() {
-        WebClient webClient = WebClient.builder().baseUrl("http://localhost:8081").build();
+    public QuarryWebClientService(@Value("${client.base-url}") String baseUrl) {
+        WebClient webClient = WebClient.builder().baseUrl(baseUrl).build();
         WebClientAdapter adapter = WebClientAdapter.create(webClient);
         HttpServiceProxyFactory factory = HttpServiceProxyFactory.builderFor(adapter).build();
 

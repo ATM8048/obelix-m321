@@ -9,7 +9,6 @@ import org.springframework.test.web.reactive.server.WebTestClient;
 class ObelixWebshopApplicationTests {
 
 	private final WebTestClient webTestClient = WebTestClient.bindToServer().baseUrl("http://localhost:8080").build();
-	private final WebTestClient quarryWebClient = WebTestClient.bindToServer().baseUrl("http://localhost:8081").build();
 	@Test
 	void buyMenhir() {
 		var anyId = webTestClient.get()

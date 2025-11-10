@@ -5,3 +5,5 @@ spring:
     active: common
 server:
   port: 8080
+client:
+  base-url: http://localhost:8081
